@@ -2,7 +2,7 @@
 
 import { WordBlock } from './wordBlock'
 
-export function WordRow(row: { word: { id: number; row: [{ id: number; text: string; state: boolean }] } }) {
+export function WordRow(row: { word: { id: number; row: [{ id: number; text: string; state: string }] } }) {
     return (
         <>
             <div className="flex justify-center">

@@ -11,61 +11,61 @@ export default function Page() {
         {
             id: 0,
             row: [
-                { id: 0, text: '', state: false },
-                { id: 1, text: '', state: false },
-                { id: 2, text: '', state: false },
-                { id: 3, text: '', state: false },
-                { id: 4, text: '', state: false },
+                { id: 0, text: '', state: '' },
+                { id: 1, text: '', state: '' },
+                { id: 2, text: '', state: '' },
+                { id: 3, text: '', state: '' },
+                { id: 4, text: '', state: '' },
             ],
         },
         {
             id: 1,
             row: [
-                { id: 0, text: '', state: false },
-                { id: 1, text: '', state: false },
-                { id: 2, text: '', state: false },
-                { id: 3, text: '', state: false },
-                { id: 4, text: '', state: false },
+                { id: 0, text: '', state: '' },
+                { id: 1, text: '', state: '' },
+                { id: 2, text: '', state: '' },
+                { id: 3, text: '', state: '' },
+                { id: 4, text: '', state: '' },
             ],
         },
         {
             id: 2,
             row: [
-                { id: 0, text: '', state: false },
-                { id: 1, text: '', state: false },
-                { id: 2, text: '', state: false },
-                { id: 3, text: '', state: false },
-                { id: 4, text: '', state: false },
+                { id: 0, text: '', state: '' },
+                { id: 1, text: '', state: '' },
+                { id: 2, text: '', state: '' },
+                { id: 3, text: '', state: '' },
+                { id: 4, text: '', state: '' },
             ],
         },
         {
             id: 3,
             row: [
-                { id: 0, text: '', state: false },
-                { id: 1, text: '', state: false },
-                { id: 2, text: '', state: false },
-                { id: 3, text: '', state: false },
-                { id: 4, text: '', state: false },
+                { id: 0, text: '', state: '' },
+                { id: 1, text: '', state: '' },
+                { id: 2, text: '', state: '' },
+                { id: 3, text: '', state: '' },
+                { id: 4, text: '', state: '' },
             ],
         },
         {
             id: 4,
             row: [
-                { id: 0, text: '', state: false },
-                { id: 1, text: '', state: false },
-                { id: 2, text: '', state: false },
-                { id: 3, text: '', state: false },
-                { id: 4, text: '', state: false },
+                { id: 0, text: '', state: '' },
+                { id: 1, text: '', state: '' },
+                { id: 2, text: '', state: '' },
+                { id: 3, text: '', state: '' },
+                { id: 4, text: '', state: '' },
             ],
         },
         {
             id: 5,
             row: [
-                { id: 0, text: '', state: false },
-                { id: 1, text: '', state: false },
-                { id: 2, text: '', state: false },
-                { id: 3, text: '', state: false },
-                { id: 4, text: '', state: false },
+                { id: 0, text: '', state: '' },
+                { id: 1, text: '', state: '' },
+                { id: 2, text: '', state: '' },
+                { id: 3, text: '', state: '' },
+                { id: 4, text: '', state: '' },
             ],
         },
     ]
@@ -98,22 +98,33 @@ export default function Page() {
             if (letter.length < 5) {
                 alert('not enough letters')
             } else {
-                const updateState = function () {
-                    for (let i = 0; i < 5; i++) {
-                        if (answerArray[i] === letter[i]) {
-                            word[rowNum].row[i].state = true
-                        } else {
-                            word[rowNum].row[i].state = false
-                        }
-                    }
-                    return word
-                }
-                setWord(updateState)
-                if (rowNum < initRow.length - 1) {
-                    setLetter(initLetter)
-                    rowNum++
+                const aWord = letter.toString().replace(/,/g, '')
+                if (!wordList.find((el) => el === aWord)) {
+                    alert('not in word list')
                 } else {
-                    alert('end game')
+                    const updateState = function () {
+                        for (let i = 0; i < 5; i++) {
+                            if (answerArray[i] === letter[i]) {
+                                word[rowNum].row[i].state = 'true'
+                            } else {
+                                const missWord = answerArray.find((el) => el == letter[i])
+                                if (missWord) {
+                                    word[rowNum].row[i].state = 'miss'
+                                } else {
+                                    word[rowNum].row[i].state = 'false'
+                                }
+                            }
+                        }
+                        console.log(word)
+                        return word
+                    }
+                    setWord(updateState)
+                    if (rowNum < initRow.length - 1) {
+                        setLetter(initLetter)
+                        rowNum++
+                    } else {
+                        alert('end game')
+                    }
                 }
             }
         }
