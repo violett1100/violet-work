@@ -1,12 +1,42 @@
 'use client'
 
 import { WordRow } from '../_componments/wordRow'
-import { keyList, wordList } from '../_componments/wordList'
+import { PopUp } from '../_componments/popUp'
+import { LetterKey, SpecialKey } from '../_componments/keyboard'
+import { wordList } from '../_componments/wordList'
 import { useState } from 'react'
 
-const answer = wordList[Math.floor(Math.random() * wordList.length)]
-let rowNum = 0
 export default function Page() {
+    const initAnswer = wordList[Math.floor(Math.random() * wordList.length)]
+    const initLetter: string[] = []
+    const initKeys = [
+        { id: 0, name: 'q', state: '' },
+        { id: 1, name: 'w', state: '' },
+        { id: 2, name: 'e', state: '' },
+        { id: 3, name: 'r', state: '' },
+        { id: 4, name: 't', state: '' },
+        { id: 5, name: 'y', state: '' },
+        { id: 6, name: 'u', state: '' },
+        { id: 7, name: 'i', state: '' },
+        { id: 8, name: 'o', state: '' },
+        { id: 9, name: 'p', state: '' },
+        { id: 10, name: 'a', state: '' },
+        { id: 11, name: 's', state: '' },
+        { id: 12, name: 'd', state: '' },
+        { id: 13, name: 'f', state: '' },
+        { id: 14, name: 'g', state: '' },
+        { id: 15, name: 'h', state: '' },
+        { id: 16, name: 'j', state: '' },
+        { id: 17, name: 'k', state: '' },
+        { id: 18, name: 'l', state: '' },
+        { id: 19, name: 'z', state: '' },
+        { id: 20, name: 'x', state: '' },
+        { id: 21, name: 'c', state: '' },
+        { id: 22, name: 'v', state: '' },
+        { id: 23, name: 'b', state: '' },
+        { id: 24, name: 'n', state: '' },
+        { id: 25, name: 'm', state: '' },
+    ]
     const initRow = [
         {
             id: 0,
@@ -70,76 +100,139 @@ export default function Page() {
         },
     ]
 
+    const [answer, setAnswer] = useState(initAnswer)
     const answerArray = Array.prototype.slice.call(answer)
-    const initLetter: string[] = []
-
+    const [keyList, setKeyList] = useState(initKeys)
     const [word, setWord] = useState(initRow)
     const [letter, setLetter] = useState(initLetter)
+    const [rowNum, setRowNum] = useState(0)
+    const [game, setGame] = useState(true)
+    const popText: string[] = []
+    const [popUp, setPopUp] = useState(popText)
 
-    document.onkeydown = function (e) {
-        const pressKey = e.key
-        // typing
+    function initGame() {
+        setAnswer(initAnswer)
+        setWord(initRow)
+        setLetter(initLetter)
+        setRowNum(0)
+        setGame(true)
+    }
+
+    function endGame(text: string) {
+        popShow(text)
+        setGame(false)
+    }
+
+    function typeLetter(pressKey: string) {
         if (letter.length < 5) {
             keyList.forEach((element) => {
-                if (pressKey == element) {
+                if (pressKey == element.name) {
                     const updateLetter = [...letter, pressKey]
                     setLetter(updateLetter)
 
-                    const updateWord = function () {
+                    setWord((word) => {
                         word[rowNum].row[letter.length].text = pressKey
                         return word
-                    }
-                    setWord(updateWord)
+                    })
                 }
             })
         }
-        // press enter
-        if (e.which == 13) {
-            if (letter.length < 5) {
-                alert('not enough letters')
-            } else {
-                const aWord = letter.toString().replace(/,/g, '')
-                if (!wordList.find((el) => el === aWord)) {
-                    alert('not in word list')
+    }
+
+    function deleteLetter() {
+        if (letter.length > 0) {
+            const letterLength = letter.length - 1
+            const removeLetter = letter.slice(0, letterLength)
+            setLetter(removeLetter)
+
+            setWord((word) => {
+                word[rowNum].row[letter.length - 1].text = ''
+                return word
+            })
+        }
+    }
+
+    function ckeckWordState() {
+        setWord((prevWord) => {
+            answerArray.map((answer, i) => {
+                if (answer === letter[i]) {
+                    prevWord[rowNum].row[i].state = 'true'
                 } else {
-                    const updateState = function () {
-                        for (let i = 0; i < 5; i++) {
-                            if (answerArray[i] === letter[i]) {
-                                word[rowNum].row[i].state = 'true'
-                            } else {
-                                const missWord = answerArray.find((el) => el == letter[i])
-                                if (missWord) {
-                                    word[rowNum].row[i].state = 'miss'
-                                } else {
-                                    word[rowNum].row[i].state = 'false'
-                                }
-                            }
-                        }
-                        console.log(word)
-                        return word
-                    }
-                    setWord(updateState)
-                    if (rowNum < initRow.length - 1) {
-                        setLetter(initLetter)
-                        rowNum++
+                    const missWord = answerArray.find((el) => el == letter[i])
+                    if (missWord) {
+                        prevWord[rowNum].row[i].state = 'miss'
                     } else {
-                        alert('end game')
+                        prevWord[rowNum].row[i].state = 'false'
                     }
+                }
+            })
+            return prevWord
+        })
+    }
+
+    function ckeckKeyState() {
+        setKeyList((prevKey) => {
+            letter.map((l, i) => {
+                const getKey: { state: string } = prevKey.find((e) => e.name == l)
+                if (l === answerArray[i]) {
+                    getKey.state = 'true'
+                } else if (getKey.state !== 'true') {
+                    const missWord = answerArray.find((el) => el == letter[i])
+                    if (missWord) {
+                        getKey.state = 'miss'
+                    } else {
+                        getKey.state = 'false'
+                    }
+                }
+                console.log()
+            })
+            return prevKey
+        })
+    }
+
+    function clickEnter() {
+        if (letter.length < initRow[0].row.length) {
+            popShow('not enough letters')
+        } else {
+            const enterWord = letter.toString().replace(/,/g, '')
+            if (!wordList.find((el) => el === enterWord)) {
+                popShow('not in word list')
+            } else {
+                ckeckWordState()
+                ckeckKeyState()
+
+                if (enterWord == answer) {
+                    endGame('good')
+                }
+                if (rowNum < initRow.length - 1) {
+                    setLetter(initLetter)
+                    setRowNum(rowNum + 1)
+                } else if (rowNum == initRow.length - 1) {
+                    setLetter(initLetter)
+                    endGame('lose')
                 }
             }
         }
-        // press delete
-        if (e.which == 8) {
-            if (letter.length > 0) {
-                const letterLength = letter.length - 1
-                const removeLetter = letter.slice(0, letterLength)
-                setLetter(removeLetter)
+    }
 
-                const removeWord = function () {
-                    word[rowNum].row[letter.length - 1].text = ''
-                    return word
-                }
-                setWord(removeWord)
+    function popShow(text: string) {
+        setPopUp((popUp) => [...popUp, text])
+        setTimeout(() => {
+            setPopUp((popUp) => popUp.slice(1))
+        }, 850)
+    }
+
+    document.onkeydown = function (e) {
+        if (game) {
+            // typing
+            typeLetter(e.key)
+            // press enter
+            if (e.which == 13) {
+                clickEnter()
+            }
+            // press delete
+            if (e.which == 8) {
+                deleteLetter()
             }
         }
     }
@@ -147,11 +240,54 @@ export default function Page() {
         <>
             <h1>Wordle</h1>
             <div className="container mx-auto">
-                <h2 className="text-center mb-4">Answer: {answer}</h2>
+                {/* <h2 className="text-center mb-4">Answer: {answer}</h2> */}
 
                 {initRow.map((row, i) => (
                     <WordRow key={row.id} word={word[i]} />
                 ))}
+                <div className="text-center mt-4">
+                    {/* <div
+                        onClick={initGame}
+                        className="inline-block cursor-pointer p-2 px-3 rounded-full m-2 bg-cyan-600 text-white hover:text-white hover:bg-cyan-500"
+                    >
+                        RESTART
+                    </div> */}
+
+                    <div>
+                        {keyList.slice(0, 10).map((key, i) => (
+                            <LetterKey
+                                key={i}
+                                keyValue={key}
+                                onKeyClick={() => typeLetter(keyList.slice(0, 10)[i].name)}
+                            />
+                        ))}
+                    </div>
+                    <div>
+                        {keyList.slice(10, 19).map((key, i) => (
+                            <LetterKey
+                                key={i}
+                                keyValue={key}
+                                onKeyClick={() => typeLetter(keyList.slice(10, 19)[i].name)}
+                            />
+                        ))}
+                    </div>
+                    <div>
+                        <SpecialKey name="enter" onKeyClick={() => clickEnter()} />
+                        {keyList.slice(19).map((key, i) => (
+                            <LetterKey
+                                key={i}
+                                keyValue={key}
+                                onKeyClick={() => typeLetter(keyList.slice(19)[i].name)}
+                            />
+                        ))}
+                        <SpecialKey name="back" onKeyClick={() => deleteLetter()} />
+                    </div>
+                </div>
+                <div className="fixed inset-x-2/4 top-1/4">
+                    {popUp.map((text, i) => (
+                        <PopUp key={i} text={text} />
+                    ))}
+                </div>
             </div>
         </>
     )
