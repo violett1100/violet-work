@@ -10,7 +10,6 @@ export function Header() {
     const links = [
         { name: 'HOME', path: '/' },
         { name: 'WORDLE', path: '/wordle' },
-        { name: 'YUHUNG', path: '/yuhung' },
     ]
     return (
         <>

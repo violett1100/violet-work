@@ -4,7 +4,7 @@ import { WordRow } from '../_componments/wordRow'
 import { PopUp } from '../_componments/popUp'
 import { LetterKey, SpecialKey } from '../_componments/keyboard'
 import { wordList } from '../_componments/wordList'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Page() {
     const initAnswer = wordList[Math.floor(Math.random() * wordList.length)]
@@ -115,6 +115,7 @@ export default function Page() {
         setWord(initRow)
         setLetter(initLetter)
         setRowNum(0)
+        setKeyList(initKeys)
         setGame(true)
     }
 
@@ -222,23 +223,51 @@ export default function Page() {
         }, 850)
     }
 
-    document.onkeydown = function (e) {
-        if (game) {
-            // typing
-            typeLetter(e.key)
-            // press enter
-            if (e.which == 13) {
-                clickEnter()
-            }
-            // press delete
-            if (e.which == 8) {
-                deleteLetter()
+    function toggleDarkMode() {
+        document.documentElement.classList.toggle('dark')
+    }
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (game) {
+                // typing
+                typeLetter(event.key)
+                // press enter
+                if (event.which == 13) {
+                    clickEnter()
+                }
+                // press delete
+                if (event.which == 8) {
+                    deleteLetter()
+                }
             }
         }
-    }
+        // 註冊 keydown 事件
+        document.addEventListener('keydown', handleKeyDown)
+
+        // 清理事件監聽器，防止記憶體洩漏
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown)
+        }
+    })
+
     return (
         <>
             <h1>Wordle</h1>
+            <div className="absolute">
+                <div
+                    onClick={initGame}
+                    className="inline-block cursor-pointer p-2 px-3 rounded-full m-2 bg-cyan-600 text-white hover:text-white hover:bg-cyan-500"
+                >
+                    RESTART
+                </div>
+                <div
+                    onClick={toggleDarkMode}
+                    className="inline-block cursor-pointer p-2 px-3 rounded-full m-2 bg-cyan-600 text-white hover:text-white hover:bg-cyan-500"
+                >
+                    Toggle Dark Mode
+                </div>
+            </div>
             <div className="container mx-auto">
                 {/* <h2 className="text-center mb-4">Answer: {answer}</h2> */}
 
@@ -246,13 +275,6 @@ export default function Page() {
                     <WordRow key={row.id} word={word[i]} />
                 ))}
                 <div className="text-center mt-4">
-                    {/* <div
-                        onClick={initGame}
-                        className="inline-block cursor-pointer p-2 px-3 rounded-full m-2 bg-cyan-600 text-white hover:text-white hover:bg-cyan-500"
-                    >
-                        RESTART
-                    </div> */}
-
                     <div>
                         {keyList.slice(0, 10).map((key, i) => (
                             <LetterKey

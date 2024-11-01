@@ -1,5 +1,8 @@
+/* 基礎樣式，會優先載入 */
 @tailwind base;
+/* 自訂元件樣式，可以覆蓋 base */
 @tailwind components;
+/* 實用工具樣式，通常覆蓋 components 和 base */
 @tailwind utilities;
 
 :root {
@@ -20,14 +23,14 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-@layer utilities {
-    .text-balance {
-        text-wrap: balance;
-    }
-}
-
 @layer base {
     h1 {
         @apply my-6 text-center text-4xl font-bold;
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
     }
 }
