@@ -174,7 +174,10 @@ export default function Page() {
     function ckeckKeyState() {
         setKeyList((prevKey) => {
             letter.map((l, i) => {
-                const getKey: { state: string } = prevKey.find((e) => e.name == l)
+                const getKey: { state: string } | undefined = prevKey.find((e) => e.name == l)
+                if (!getKey) {
+                    return
+                }
                 if (l === answerArray[i]) {
                     getKey.state = 'true'
                 } else if (getKey.state !== 'true') {
