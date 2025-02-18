@@ -6,7 +6,7 @@ import { Footer } from './_componments/footer'
 import { Outfit, Ubuntu_Mono } from 'next/font/google'
 import { ReactElement } from 'react'
 import { dir } from 'i18next'
-import { languages } from '@/i18n/settings'
+// import { languages } from '@/i18n/settings'
 
 const outfit = Outfit({
     subsets: ['latin'],
