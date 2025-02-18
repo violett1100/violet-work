@@ -12,6 +12,12 @@ const config: Config = {
             colors: {
                 background: 'var(--background)',
                 foreground: 'var(--foreground)',
+                primary: 'var(--primary)',
+                tertiary: 'var(--tertiary)',
+            },
+            screens: {
+                xs: '480px',
+                xxs: '360px',
             },
         },
     },

@@ -5,6 +5,7 @@ import { PopUp } from '../_componments/popUp'
 import { LetterKey, SpecialKey } from '../_componments/keyboard'
 import { wordList } from '../_componments/wordList'
 import { useState, useEffect } from 'react'
+import clsx from 'clsx'
 
 export default function Page() {
     const initAnswer = wordList[Math.floor(Math.random() * wordList.length)]
@@ -99,7 +100,6 @@ export default function Page() {
             ],
         },
     ]
-
     const [answer, setAnswer] = useState(initAnswer)
     const answerArray = Array.prototype.slice.call(answer)
     const [keyList, setKeyList] = useState(initKeys)
@@ -109,6 +109,7 @@ export default function Page() {
     const [game, setGame] = useState(true)
     const popText: string[] = []
     const [popUp, setPopUp] = useState(popText)
+    const [restart, setRestart] = useState(false)
 
     function initGame() {
         setAnswer(initAnswer)
@@ -117,11 +118,17 @@ export default function Page() {
         setRowNum(0)
         setKeyList(initKeys)
         setGame(true)
+        setRestart(false)
     }
 
     function endGame(text: string) {
         popShow(text)
         setGame(false)
+        setRestart(true)
+    }
+
+    function closeRestart() {
+        setRestart(false)
     }
 
     function typeLetter(pressKey: string) {
@@ -226,10 +233,6 @@ export default function Page() {
         }, 850)
     }
 
-    function toggleDarkMode() {
-        document.documentElement.classList.toggle('dark')
-    }
-
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (game) {
@@ -256,8 +259,13 @@ export default function Page() {
 
     return (
         <>
-            <h1>Wordle</h1>
-            <div className="absolute">
+            <h1 className="title text-center">Wordle</h1>
+            <div
+                className={clsx('fixed w-full h-screen flex justify-center items-center top-0 bg-gray-900/50', {
+                    block: restart == true,
+                    hidden: restart == false,
+                })}
+            >
                 <div
                     onClick={initGame}
                     className="inline-block cursor-pointer p-2 px-3 rounded-full m-2 bg-cyan-600 text-white hover:text-white hover:bg-cyan-500"
@@ -265,13 +273,13 @@ export default function Page() {
                     RESTART
                 </div>
                 <div
-                    onClick={toggleDarkMode}
+                    onClick={closeRestart}
                     className="inline-block cursor-pointer p-2 px-3 rounded-full m-2 bg-cyan-600 text-white hover:text-white hover:bg-cyan-500"
                 >
-                    Toggle Dark Mode
+                    CLOSE
                 </div>
             </div>
-            <div className="container mx-auto">
+            <div className="container mx-auto px-4">
                 {/* <h2 className="text-center mb-4">Answer: {answer}</h2> */}
 
                 {initRow.map((row, i) => (
