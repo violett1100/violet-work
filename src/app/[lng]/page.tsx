@@ -2,8 +2,9 @@ import { Games } from './_componments/games'
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 
-type PageProps = { params: { lng: string } }
-export default function Home({ params: { lng } }: PageProps) {
+type PageProps = { params: Promise<{ lng: string }> }
+export default async function Home({ params }: PageProps) {
+    const resolvedParams = await params
     const designs = [
         // { text: 'Tech', link: 'https://violet-demo-tech.netlify.app' },
         // { text: 'Farm', link: 'https://violet-demo-farm.netlify.app' },
@@ -42,7 +43,7 @@ export default function Home({ params: { lng } }: PageProps) {
     ]
     return (
         <div className="wrapper">
-            <h1>{lng}</h1>
+            <h1>{resolvedParams.lng}</h1>
             <h2 className="title">My Work</h2>
 
             <div className="md:grid grid-cols-4 mb-12">
