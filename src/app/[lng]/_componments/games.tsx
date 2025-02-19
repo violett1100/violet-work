@@ -4,8 +4,8 @@ import Image from 'next/image'
 export function Games() {
     const lists = [
         { name: 'Wordle', url: '/wordle', img: '/images/wordle.png' },
-        { name: 'Lucky Wheel', url: 'https://violet-luckywheel1.netlify.app/', img: '/images/luckywheel.png' },
-        { name: 'Slot Machine', url: 'https://violet-slotmachine2.netlify.app', img: '/images/slotmachine.png' },
+        { name: 'Lucky Wheel', url: 'https://violet-luckywheel1.netlify.app/', img: '/assets/images/luckywheel.png' },
+        { name: 'Slot Machine', url: 'https://violet-slotmachine2.netlify.app', img: '/image/slotmachine.png' },
         { name: 'Slot Machine', url: 'https://violet-slotmachine2.netlify.app', img: '/images/luckywheel2.png' },
     ]
     return (
