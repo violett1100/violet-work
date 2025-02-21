@@ -1,10 +1,7 @@
 import type { Metadata } from 'next'
 import { Header_resume } from '@/app/_componments/header'
 import { Footer } from '@/app/_componments/footer'
-
 import { ReactElement } from 'react'
-
-import { languages } from '@/i18n/settings'
 
 export const metadata: Metadata = {
     title: `Violet's Work`,

@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import Link from 'next/link'
-import { Menu } from '@/app/_componments/menu'
+// import { Menu } from '@/app/_componments/menu'
 import { SwitchLangBtn } from '@/app/_componments/switchLang'
 
 export function Header_resume(params) {

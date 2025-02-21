@@ -3,7 +3,7 @@ import localFont from 'next/font/local'
 import './globals.css'
 import { Outfit, Ubuntu_Mono } from 'next/font/google'
 import { ReactElement } from 'react'
-import { dir } from 'i18next'
+// import { dir } from 'i18next'
 
 import { languages } from '@/i18n/settings'
 

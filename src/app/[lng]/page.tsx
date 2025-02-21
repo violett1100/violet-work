@@ -2,7 +2,6 @@ import { Games } from '@/app/_componments/games'
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 import { getTranslation } from '@/i18n'
-import { SwitchLangBtn } from '@/app/_componments/switchLang'
 import { cookies } from 'next/headers'
 
 type PageProps = { params: Promise<{ lng: string }> }
