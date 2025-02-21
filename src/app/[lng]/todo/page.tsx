@@ -6,10 +6,13 @@ export default function Page() {
                     <b>To do list</b>
                 </p>
                 <ol>
-                    <li>i18n</li>
-                    <li>小遊戲缺一</li>
+                    <li>Resume (國健署/血液透析/PD)</li>
+                    <li>i18n (cookie)</li>
+
                     <li>簡介</li>
                     <li>RWD</li>
+                    <br />
+                    <li>Loading</li>
                     <li>Dark mode?</li>
                 </ol>
             </div>

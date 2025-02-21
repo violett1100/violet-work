@@ -1,9 +1,9 @@
 'use client'
 
-import { WordRow } from '../_componments/wordRow'
-import { PopUp } from '../_componments/popUp'
-import { LetterKey, SpecialKey } from '../_componments/keyboard'
-import { wordList } from '../_componments/wordList'
+import { WordRow } from '@/app/_componments/wordRow'
+import { PopUp } from '@/app/_componments/popUp'
+import { LetterKey, SpecialKey } from '@/app/_componments/keyboard'
+import { wordList } from '@/app/_componments/wordList'
 import { useState, useEffect } from 'react'
 import clsx from 'clsx'
 

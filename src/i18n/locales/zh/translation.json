@@ -1,0 +1,24 @@
+{
+    "myWork": {
+        "title": "我的作品",
+        "categ1": {
+            "title": "網站形象設計",
+            "content1": "醫藥品牌網站設計(Behance)",
+            "content2": "婚禮參加表單設計與製作",
+            "content3": "網站設計品牌官網設計與製作"
+        },
+        "categ2": {
+            "title": "商業網站",
+            "content1": "腹膜透析互動式網站設計與製作",
+            "content2": "血液透析據點查找網站設計與製作",
+            "content3": "農場品牌形象網站設計與製作"
+        },
+        "categ3": {
+            "title": "互動小遊戲",
+            "content1": "猜字謎",
+            "content2": "幸運輪盤",
+            "content3": "拉霸機",
+            "content4": "刮刮樂"
+        }
+    }
+}

@@ -1,3 +1,24 @@
 {
-    "title": "Hi there!"
+    "myWork": {
+        "title": "My Work",
+        "categ1": {
+            "title": "Website Designs",
+            "content1": "Pharmacy and Medicine Website Design (Behance)",
+            "content2": "Wedding RSVP Website Design & Development",
+            "content3": "Design Brand Website Design & Development"
+        },
+        "categ2": {
+            "title": "Business Projects",
+            "content1": "Peritoneal Dialysis Website Design & Development",
+            "content2": "Hemodialysis Website Design & Development",
+            "content3": "Farm Brand Website Design & Development"
+        },
+        "categ3": {
+            "title": "Interactive Games",
+            "content1": "Wordle",
+            "content2": "Lucky Wheel",
+            "content3": "Slot Machine",
+            "content4": "Scratch Lottery"
+        }
+    }
 }

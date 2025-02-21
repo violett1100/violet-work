@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-export function Header_resume() {
+export function Menu() {
     const pathname = usePathname()
 
     const links = [
@@ -12,6 +12,29 @@ export function Header_resume() {
         { name: 'REFERENCE', path: '/reference' },
         { name: '404', path: '/not-found' },
     ]
+    return (
+        <menu className="mt-4">
+            {links.map((link, i) => {
+                return (
+                    <div key={i}>
+                        <Link
+                            href={link.path}
+                            className={clsx('hover:text-purple-400 font-semibold', {
+                                underline: pathname === link.path,
+                            })}
+                            scroll={false}
+                        >
+                            {/* <ChevronRight className="w-4 inline-block" /> */}
+                            {link.name}
+                        </Link>{' '}
+                    </div>
+                )
+            })}
+        </menu>
+    )
+}
+
+export function Header_resume() {
     return (
         <div className="wrapper grid gap-8 grid-cols-2 sm:grid-cols-4">
             <div className="col-span-1 sm:col-span-3">
@@ -25,24 +48,6 @@ export function Header_resume() {
             </div>
             <div className="mt-2">
                 <p>Website Designer & Frontend Developer</p>
-                <menu className="mt-4">
-                    {links.map((link, i) => {
-                        return (
-                            <div key={i}>
-                                <Link
-                                    href={link.path}
-                                    className={clsx('hover:text-purple-400 font-semibold', {
-                                        underline: pathname === link.path,
-                                    })}
-                                    scroll={false}
-                                >
-                                    {/* <ChevronRight className="w-4 inline-block" /> */}
-                                    {link.name}
-                                </Link>{' '}
-                            </div>
-                        )
-                    })}
-                </menu>
             </div>
         </div>
     )

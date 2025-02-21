@@ -28,7 +28,11 @@ export function middleware(req: NextRequest) {
         const lngInReferer = languages.find((l) => refererUrl.pathname.startsWith(`/${l}`))
         const response = NextResponse.next()
         if (lngInReferer) response.cookies.set(cookieName, lngInReferer)
+        console.log('go')
+        console.log(lngInReferer)
         return response
+    } else {
+        console.log('stop')
     }
 
     return NextResponse.next()
