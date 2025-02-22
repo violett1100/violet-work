@@ -5,7 +5,7 @@ import { SwitchLangBtn } from '@/app/_componments/switchLang'
 
 export function Header_resume(params) {
     return (
-        <div className="wrapper grid gap-4 md:gap-8 grid-cols-1 md:grid-cols-4 mb-4">
+        <div className="wrapper grid gap-4 md:gap-8 grid-cols-1 md:grid-cols-4">
             <div className="col-span-1 md:col-span-3">
                 <Link
                     href="/"

@@ -20,5 +20,10 @@
             "content3": "Slot Machine",
             "content4": "Scratch Lottery"
         }
+    },
+    "aboutMe": {
+        "title": "About Me",
+        "content1": "Hi! I'm Violet, a front-end developer with designing experiences. I enjoy diving in the summer, skiing in the winter, and exploring new things while taking on different challenges.",
+        "content2": "I have four years of experience in web development, with well understanding of website planning, design, and the complete process of building a site from scratch. If you're interested in these topics, feel free to reach out!"
     }
 }

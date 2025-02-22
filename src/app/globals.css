@@ -36,7 +36,7 @@ body {
         @apply p-4 xl:p-8;
     }
     .title {
-        @apply text-7xl sm:text-9xl mb-12;
+        @apply text-7xl sm:text-9xl my-12;
     }
     .subtitle {
         @apply text-3xl sm:text-5xl mb-8;

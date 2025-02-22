@@ -8,10 +8,9 @@ export default function Page() {
                 <ol>
                     <li>Resume (國健署/血液透析/PD)</li>
                     <li>i18n (cookie)</li>
+                    <li>fix switch back home</li>
 
-                    <li>簡介</li>
-                    <li>RWD</li>
-                    <br />
+                    {/* <br /> */}
                     <li>Loading</li>
                     <li>Dark mode?</li>
                 </ol>
