@@ -16,7 +16,7 @@ export function Header_resume(params) {
                 </Link>
             </div>
             <div className="mt-2">
-                <p>Website Designer & Frontend Developer</p>
+                <p>{params.lng == 'en' ? 'Website Designer & Frontend Developer' : '網頁設計師＆前端工程師'}</p>
                 <SwitchLangBtn lng={params.lng} />
                 {/* <Menu /> */}
             </div>

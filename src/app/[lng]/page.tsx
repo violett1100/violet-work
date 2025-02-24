@@ -52,7 +52,7 @@ export default async function Home({ params }: PageProps) {
         },
     ]
     const games = [
-        { name: t('myWork.categ3.content1'), url: '/wordle', img: '/assets/images/wordle.png' },
+        { name: t('myWork.categ3.content1'), url: `/${resolvedParams.lng}/wordle`, img: '/assets/images/wordle.png' },
         {
             name: t('myWork.categ3.content2'),
             url: 'https://violet-luckywheel1.netlify.app/',
