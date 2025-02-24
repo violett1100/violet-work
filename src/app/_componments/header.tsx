@@ -8,7 +8,7 @@ export function Header_resume(params) {
         <div className="wrapper grid gap-4 md:gap-8 grid-cols-1 md:grid-cols-4">
             <div className="col-span-1 md:col-span-3">
                 <Link
-                    href="/"
+                    href={`/${params.lng}`}
                     className="text-3xl after:block after:w-44 after:h-2 after:translate-x-16 after:translate-y-2 after:bg-purple-300"
                     scroll={false}
                 >

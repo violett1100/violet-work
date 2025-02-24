@@ -10,7 +10,10 @@ type PageProps = { params: Promise<{ lng: string }> }
 export default async function Home({ params }: PageProps) {
     const resolvedParams = await params
     const { t } = await getTranslation(resolvedParams.lng, 'translation')
-    console.log(cookies)
+    const cookieStore = await cookies()
+
+    const theme = cookieStore.get('i18next')
+    console.log(theme)
 
     const designs = [
         // { text: 'Tech', link: 'https://violet-demo-tech.netlify.app' },
