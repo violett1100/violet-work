@@ -33,24 +33,20 @@ function Timer() {
 }
 
 export default function Page() {
-    const [count, setCount] = useState(0)
-    function click(prams: 'increase' | 'decrease' | 'reset') {
-        prams === 'increase'
-            ? setCount(count + 1)
-            : prams === 'decrease'
-            ? setCount(count - 1)
-            : prams === 'reset'
-            ? setCount(0)
-            : ''
-    }
+    // const [count, setCount] = useState(0)
+    // function click(prams: 'increase' | 'decrease' | 'reset') {
+    //     prams === 'increase'
+    //         ? setCount(count + 1)
+    //         : prams === 'decrease'
+    //         ? setCount(count - 1)
+    //         : prams === 'reset'
+    //         ? setCount(0)
+    //         : ''
+    // }
     return (
         <>
             <div className="wrapper">
-                <PreviousValue />
-                <hr />
-                <Timer />
-
-                <p>{count}</p>
+                {/* <p>{count}</p>
                 <button onClick={() => click('increase')} className="border px-2 m-2">
                     +1
                 </button>
@@ -59,7 +55,11 @@ export default function Page() {
                 </button>
                 <button onClick={() => click('reset')} className="border px-2 m-2">
                     reset
-                </button>
+                </button> */}
+
+                <PreviousValue />
+                <hr />
+                <Timer />
             </div>
         </>
     )
