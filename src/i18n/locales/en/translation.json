@@ -19,6 +19,10 @@
             "content2": "Lucky Wheel",
             "content3": "Slot Machine",
             "content4": "Scratch Lottery"
+        },
+        "categ4": {
+            "title": "Practice Components",
+            "content1": "Date Picker"
         }
     },
     "aboutMe": {

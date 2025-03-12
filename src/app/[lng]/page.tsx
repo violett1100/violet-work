@@ -127,6 +127,23 @@ export default async function Home({ params }: PageProps) {
                         <Games gameList={{ games }} />
                     </div>
                 </div>
+                <div className="md:grid grid-cols-4 mb-12">
+                    <p className="font-semibold text-xl my-2">04</p>
+                    <div className="col-start-2 col-span-3">
+                        <h3 className="subtitle">{t('myWork.categ4.title')}</h3>
+                        <div className="mb-4 border-b border-tertiary pb-2">
+                            <Link
+                                href={`/${resolvedParams.lng}/datepicker`}
+                                className="hover:text-primary inline-block md:flex justify-between items-baseline"
+                            >
+                                <p className="flex items-center">
+                                    <ChevronRight className="inline size-6 pr-2" />
+                                    {t('myWork.categ4.content1')}
+                                </p>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="wrapper">
                 <div className="mb-8">

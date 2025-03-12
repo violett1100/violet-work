@@ -19,6 +19,10 @@
             "content2": "幸運輪盤",
             "content3": "拉霸機",
             "content4": "刮刮樂"
+        },
+        "categ4": {
+            "title": "元件練習",
+            "content1": "日期選擇工具"
         }
     },
     "aboutMe": {
