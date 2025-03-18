@@ -1,5 +1,5 @@
 import { DatePicker } from '@/app/_componments/datePicker'
-import '@/app/assets/css/DatePicker.min.css'
+import '@/app/assets/css/DatePicker.css'
 
 export default function Page() {
     return (

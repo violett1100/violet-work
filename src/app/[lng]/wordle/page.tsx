@@ -5,6 +5,7 @@ import { PopUp } from '@/app/_componments/popUp'
 import { LetterKey, SpecialKey } from '@/app/_componments/keyboard'
 import { wordList } from '@/app/_componments/wordList'
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import clsx from 'clsx'
 
 export default function Page() {
@@ -321,6 +322,11 @@ export default function Page() {
                         <PopUp key={i} text={text} />
                     ))}
                 </div>
+            </div>
+            <div className="text-center text-gray-400 mt-4">
+                <Link className="underline" href="/search" target="_blank">
+                    Need a hint?
+                </Link>
             </div>
         </>
     )
