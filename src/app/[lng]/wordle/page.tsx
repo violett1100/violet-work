@@ -4,7 +4,7 @@ import { WordRow } from '@/app/_componments/wordRow'
 import { PopUp } from '@/app/_componments/popUp'
 import { LetterKey, SpecialKey } from '@/app/_componments/keyboard'
 import { wordList } from '@/app/_componments/wordList'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import Link from 'next/link'
 import clsx from 'clsx'
 
@@ -39,7 +39,7 @@ export default function Page() {
         { id: 24, name: 'n', state: '' },
         { id: 25, name: 'm', state: '' },
     ]
-    const initRow = [
+    const initRows = [
         {
             id: 0,
             row: [
@@ -102,129 +102,129 @@ export default function Page() {
         },
     ]
     const [answer, setAnswer] = useState(initAnswer)
-    const answerArray = Array.prototype.slice.call(answer)
+    const answerArray = useMemo(() => [...answer], [answer])
     const [keyList, setKeyList] = useState(initKeys)
-    const [word, setWord] = useState(initRow)
+    const [rows, setRows] = useState(initRows)
     const [letter, setLetter] = useState(initLetter)
-    const [rowNum, setRowNum] = useState(0)
+    const [currentRow, setCurrentRow] = useState(0)
     const [game, setGame] = useState(true)
     const popText: string[] = []
     const [popUp, setPopUp] = useState(popText)
-    const [restart, setRestart] = useState(false)
+    const [showRestartBtn, setShowRestartBtn] = useState(false)
 
     function initGame() {
         setAnswer(initAnswer)
-        setWord(initRow)
+        setRows(initRows)
         setLetter(initLetter)
-        setRowNum(0)
+        setCurrentRow(0)
         setKeyList(initKeys)
         setGame(true)
-        setRestart(false)
+        setShowRestartBtn(false)
     }
 
     function endGame(text: string) {
         popShow(text)
         setGame(false)
-        setRestart(true)
+        setShowRestartBtn(true)
     }
 
     function closeRestart() {
-        setRestart(false)
+        setShowRestartBtn(false)
     }
 
-    function typeLetter(pressKey: string) {
+    const typeLetter = useCallback((pressKey: string) => {
         if (letter.length < 5) {
-            keyList.forEach((element) => {
-                if (pressKey == element.name) {
-                    const updateLetter = [...letter, pressKey]
-                    setLetter(updateLetter)
+            if (keyList.find((key) => key.name === pressKey)) {
+                const updateLetter = [...letter, pressKey]
+                setLetter(updateLetter)
 
-                    setWord((word) => {
-                        word[rowNum].row[letter.length].text = pressKey
-                        return word
-                    })
-                }
-            })
+                setRows((prev) => {
+                    const newRow = [...prev]
+                    newRow[currentRow].row[letter.length].text = pressKey
+                    return newRow
+                })
+            }
         }
-    }
+    }, [letter])
 
-    function deleteLetter() {
+    const deleteLetter = useCallback(() => {
         if (letter.length > 0) {
             const letterLength = letter.length - 1
             const removeLetter = letter.slice(0, letterLength)
             setLetter(removeLetter)
 
-            setWord((word) => {
-                word[rowNum].row[letter.length - 1].text = ''
-                return word
+            setRows((prev) => {
+                const newRow = [...prev]
+                newRow[currentRow].row[letter.length - 1].text = ''
+                return newRow
             })
         }
-    }
+    }, [letter])
 
-    function ckeckWordState() {
-        setWord((prevWord) => {
-            answerArray.map((answer, i) => {
-                if (answer === letter[i]) {
-                    prevWord[rowNum].row[i].state = 'true'
-                } else {
-                    const missWord = answerArray.find((el) => el == letter[i])
-                    if (missWord) {
-                        prevWord[rowNum].row[i].state = 'miss'
-                    } else {
-                        prevWord[rowNum].row[i].state = 'false'
-                    }
-                }
-            })
-            return prevWord
-        })
-    }
-
-    function ckeckKeyState() {
-        setKeyList((prevKey) => {
-            letter.map((l, i) => {
-                const getKey: { state: string } | undefined = prevKey.find((e) => e.name == l)
-                if (!getKey) {
-                    return
-                }
-                if (l === answerArray[i]) {
-                    getKey.state = 'true'
-                } else if (getKey.state !== 'true') {
-                    const missWord = answerArray.find((el) => el == letter[i])
-                    if (missWord) {
-                        getKey.state = 'miss'
-                    } else {
-                        getKey.state = 'false'
-                    }
-                }
-                console.log()
-            })
-            return prevKey
-        })
-    }
-
-    function clickEnter() {
-        if (letter.length < initRow[0].row.length) {
+    const clickEnter = useCallback(() => {
+        if (letter.length < initRows[0].row.length) {
             popShow('not enough letters')
         } else {
             const enterWord = letter.toString().replace(/,/g, '')
             if (!wordList.find((el) => el === enterWord)) {
                 popShow('not in word list')
             } else {
-                ckeckWordState()
-                ckeckKeyState()
+                checkWordState()
+                checkKeyState()
 
-                if (enterWord == answer) {
+                if (enterWord === answer) {
                     endGame('good')
                 }
-                if (rowNum < initRow.length - 1) {
+                if (currentRow < initRows.length - 1) {
                     setLetter(initLetter)
-                    setRowNum(rowNum + 1)
-                } else if (rowNum == initRow.length - 1) {
+                    setCurrentRow(currentRow + 1)
+                } else if (currentRow === initRows.length - 1) {
                     setLetter(initLetter)
                     endGame('lose')
                 }
             }
         }
+    }, [letter, currentRow])
+
+    function checkWordState() {
+        setRows((prev) => {
+            const newRows = [...prev]
+            const newRow = [...newRows[currentRow].row]
+            answerArray.forEach((item, i) => {
+                if (item === letter[i]) {
+                    newRow[i] = { ...newRow[i], state: 'true' }
+                } else {
+                    const missWord = answerArray.find((el) => el === letter[i])
+                    if (missWord) {
+                        newRow[i] = { ...newRow[i], state: 'miss' }
+                    } else {
+                        newRow[i] = { ...newRow[i], state: 'false' }
+                    }
+                }
+            })
+            newRows[currentRow] = { ...newRows[currentRow], row: newRow }
+            return newRows
+        })
+    }
+
+    function checkKeyState() {
+        setKeyList((prevKey) => {
+            letter.forEach((item, i) => {
+                const getKey: { state: string } | undefined = prevKey.find((e) => e.name === item)
+                if (!getKey) return
+                if (item === answerArray[i]) {
+                    getKey.state = 'true'
+                } else if (getKey.state !== 'true') {
+                    const missWord = answerArray.find((el) => el === letter[i])
+                    if (missWord) {
+                        getKey.state = 'miss'
+                    } else {
+                        getKey.state = 'false'
+                    }
+                }
+            })
+            return prevKey
+        })
     }
 
     function popShow(text: string) {
@@ -240,11 +240,11 @@ export default function Page() {
                 // typing
                 typeLetter(event.key)
                 // press enter
-                if (event.which == 13) {
+                if (event.key === 'Enter') {
                     clickEnter()
                 }
                 // press delete
-                if (event.which == 8) {
+                if (event.key === 'Backspace') {
                     deleteLetter()
                 }
             }
@@ -256,15 +256,15 @@ export default function Page() {
         return () => {
             document.removeEventListener('keydown', handleKeyDown)
         }
-    })
+    }, [typeLetter, clickEnter, deleteLetter])
 
     return (
         <>
             <h1 className="title text-center">Wordle</h1>
             <div
                 className={clsx('fixed w-full h-screen flex justify-center items-center top-0 bg-gray-900/50', {
-                    block: restart == true,
-                    hidden: restart == false,
+                    block: showRestartBtn === true,
+                    hidden: showRestartBtn === false,
                 })}
             >
                 <div
@@ -283,8 +283,8 @@ export default function Page() {
             <div className="container mx-auto px-4">
                 {/* <h2 className="text-center mb-4">Answer: {answer}</h2> */}
 
-                {initRow.map((row, i) => (
-                    <WordRow key={row.id} word={word[i]} />
+                {initRows.map((row, i) => (
+                    <WordRow key={row.id} word={rows[i]} />
                 ))}
                 <div className="text-center mt-4">
                     <div>
