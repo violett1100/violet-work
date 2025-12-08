@@ -1,3 +1,7 @@
+#minesweeper * {
+  box-sizing: border-box;
+  position: relative;
+}
 #minesweeper .btn {
   width: 48px;
   height: 48px;
@@ -30,10 +34,11 @@
   border-left: 3px solid #fff;
   border-right: 3px solid #777;
   border-bottom: 3px solid #777;
+  outline: 16px solid #ccc;
 }
-#minesweeper .wrapper > * {
-  box-sizing: border-box;
-  position: relative;
+#minesweeper .wrapper * {
+  font-family: monospace;
+  font-weight: bold;
 }
 #minesweeper .board {
   border-top: 3px solid #777;
@@ -46,12 +51,31 @@
   padding: 12px;
   gap: 8px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   border-top: 3px solid #777;
   border-left: 3px solid #777;
   border-right: 3px solid #fff;
   border-bottom: 3px solid #fff;
+}
+#minesweeper .settings .count {
+  width: 64px;
+  height: 48px;
+  font-family: monospace;
+  font-size: 24px;
+  border-top: 3px solid #777;
+  border-left: 3px solid #777;
+  border-right: 3px solid #fff;
+  border-bottom: 3px solid #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#minesweeper .settings .btn-group {
+  gap: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #minesweeper .cube {
   width: 32px;

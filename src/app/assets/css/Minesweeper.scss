@@ -17,8 +17,11 @@
   border-right: 3px solid #fff;
   border-bottom: 3px solid #fff;
 }
-
 #minesweeper {
+  * {
+    box-sizing: border-box;
+    position: relative;
+  }
   .btn {
     width: 48px;
     height: 48px;
@@ -41,9 +44,10 @@
     padding: 12px;
     background: #ccc;
     @include block-up;
-    & > * {
-      box-sizing: border-box;
-      position: relative;
+    outline: 16px solid #ccc;
+    * {
+      font-family: monospace;
+      font-weight: bold;
     }
   }
 
@@ -55,8 +59,22 @@
     width: 100%;
     padding: 12px;
     gap: 8px;
-    @include flex-center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     @include block-down;
+    .count {
+      width: 64px;
+      height: 48px;
+      font-family: monospace;
+      font-size: 24px;
+      @include block-down;
+      @include flex-center;
+    }
+    .btn-group {
+      gap: 8px;
+      @include flex-center;
+    }
   }
 
   .cube {

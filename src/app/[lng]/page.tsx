@@ -60,7 +60,7 @@ export default async function Home({ params }: PageProps) {
     {
       name: t('myWork.categ3.content5'),
       url: `/${resolvedParams.lng}/minesweeper`,
-      img: '/assets/images/scratchoff.png',
+      img: '/assets/images/minesweeper.png',
     },
     {
       name: t('myWork.categ3.content2'),

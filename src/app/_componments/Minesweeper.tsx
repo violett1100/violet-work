@@ -16,6 +16,7 @@ export function Minesweeper() {
   const [easyMode, setEasyMode] = useState(true)
   const [endGame, setEndGame] = useState(false)
   const [isWon, setIsWon] = useState(false)
+  const [count, setCount] = useState(10)
 
   const newGame = (easyMode: boolean) => {
     const colNumber = easyMode ? 8 : 16
@@ -31,6 +32,7 @@ export function Minesweeper() {
     }))
     setIsWon(false)
     setEndGame(false)
+    setCount(bombNumber)
     return array
   }
 
@@ -41,30 +43,39 @@ export function Minesweeper() {
       setEndGame(true)
       setIsWon(true)
     }
-  }, [cubes])
+    const flags = cubes.filter((c) => c.hasFlag).length
+    setCount(() => {
+      const bombNumber = easyMode ? 10 : 40
+      return bombNumber - flags
+    })
+  }, [cubes, easyMode])
+
   return (
     <div className="wrapper">
       <div className="settings">
-        <button
-          className="btn"
-          onClick={() => {
-            setEasyMode(() => {
-              setCubes(newGame(!easyMode))
-              return !easyMode
-            })
-          }}
-        >
-          {easyMode ? 'Easy' : 'Hard'}
-        </button>
-        <button className="btn" onClick={() => setCubes(newGame(easyMode))}>
-          {endGame && isWon ? (
-            <Laugh size={28} strokeWidth={2} />
-          ) : endGame ? (
-            <Frown size={28} strokeWidth={2} />
-          ) : (
-            <Smile size={28} strokeWidth={2} />
-          )}
-        </button>
+        <div className="count">{count}</div>
+        <div className="btn-group">
+          <button
+            className="btn"
+            onClick={() => {
+              setEasyMode(() => {
+                setCubes(newGame(!easyMode))
+                return !easyMode
+              })
+            }}
+          >
+            {easyMode ? 'Easy' : 'Hard'}
+          </button>
+          <button className="btn" onClick={() => setCubes(newGame(easyMode))}>
+            {endGame && isWon ? (
+              <Laugh size={28} strokeWidth={2} />
+            ) : endGame ? (
+              <Frown size={28} strokeWidth={2} />
+            ) : (
+              <Smile size={28} strokeWidth={2} />
+            )}
+          </button>
+        </div>
       </div>
       <div className={`grid board ${easyMode ? 'grid-cols-8' : 'grid-cols-16'}`}>
         {cubes.map((item) => (
@@ -99,22 +110,7 @@ const Cube = (props: {
     if (!item.hasBomb) {
       setCubes((cubes) => {
         const shouldOpen: number[] = []
-        const checkNeighbors = (array: number[]) => {
-          if (array.length === 0) return
-          const newArray: number[][] = []
-          array.forEach((i) => {
-            shouldOpen.push(i)
-          })
-          array
-            .filter((a) => !cubes[a].hasBomb)
-            .forEach((i) => {
-              const newNei = getNeighbors(colNumber, i).filter((a) => !shouldOpen.includes(a))
-              newArray.push(newNei)
-            })
-          return checkNeighbors([...new Set(newArray.flat())])
-        }
-        checkNeighbors([item.id])
-        console.log(`shouldOpen: ${shouldOpen}`)
+        checkNeighbors([item.id], shouldOpen, cubes)
         return cubes.map((cube, i) => (shouldOpen.includes(i) ? { ...cube, isOpen: true } : cube))
       })
     }
@@ -137,15 +133,32 @@ const Cube = (props: {
       cubes.map((cube, i) =>
         i === item.id
           ? { ...cube, isExplode: true, isOpen: true }
-          : cube.isBomb
+          : (cube.isBomb && !cube.hasFlag) || (!cube.isBomb && cube.hasFlag)
           ? { ...cube, isOpen: true }
           : cube
       )
     )
   }
 
+  const checkNeighbors = (array: number[], shouldOpen: number[], cubes: CubeType[]) => {
+    if (array.length === 0) return
+    const newArray: number[][] = []
+    array.forEach((i) => {
+      shouldOpen.push(i)
+    })
+    array
+      .filter((a) => !cubes[a].hasBomb)
+      .forEach((i) => {
+        const newNei = getNeighbors(colNumber, i).filter((a) => !shouldOpen.includes(a))
+        newArray.push(newNei)
+      })
+    return checkNeighbors([...new Set(newArray.flat())], shouldOpen, cubes)
+  }
+
   const display = item.isBomb ? (
     <Bomb size={18} strokeWidth={2.5} className={`${item.isExplode && 'text-red-600'}`} />
+  ) : !item.isBomb && item.hasFlag ? (
+    <FlagTriangleRight size={18} strokeWidth={2.5} className="text-red-600" />
   ) : item.hasBomb !== 0 ? (
     item.hasBomb.toString()
   ) : (
