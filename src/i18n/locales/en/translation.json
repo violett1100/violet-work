@@ -18,7 +18,8 @@
             "content1": "Wordle",
             "content2": "Lucky Wheel",
             "content3": "Slot Machine",
-            "content4": "Scratch Lottery"
+            "content4": "Scratch Lottery",
+            "content5": "Minesweeper"
         },
         "categ4": {
             "title": "Practice Components",

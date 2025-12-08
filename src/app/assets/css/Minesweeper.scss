@@ -1,0 +1,73 @@
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin block-up {
+  border-top: 3px solid #fff;
+  border-left: 3px solid #fff;
+  border-right: 3px solid #777;
+  border-bottom: 3px solid #777;
+}
+
+@mixin block-down {
+  border-top: 3px solid #777;
+  border-left: 3px solid #777;
+  border-right: 3px solid #fff;
+  border-bottom: 3px solid #fff;
+}
+
+#minesweeper {
+  .btn {
+    width: 48px;
+    height: 48px;
+    flex-direction: row;
+    @include flex-center;
+    @include block-up;
+    &:active {
+      @include block-down;
+    }
+  }
+
+  .wrapper {
+    margin: 0 auto;
+    width: fit-content;
+    display: inline-flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+    background: #ccc;
+    @include block-up;
+    & > * {
+      box-sizing: border-box;
+      position: relative;
+    }
+  }
+
+  .board {
+    @include block-down;
+  }
+
+  .settings {
+    width: 100%;
+    padding: 12px;
+    gap: 8px;
+    @include flex-center;
+    @include block-down;
+  }
+
+  .cube {
+    width: 32px;
+    height: 32px;
+    background: #ccc;
+    @include flex-center;
+    @include block-up;
+    &.opened,
+    &:active:not(.flag):not(.end-game) {
+      border: 1px solid #aaa;
+    }
+  }
+}
