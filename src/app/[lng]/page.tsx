@@ -1,4 +1,4 @@
-import { Games } from '@/app/_componments/games'
+import { Games } from '@/app/componments/games'
 import Link from 'next/link'
 import Image from 'next/image'
 import clsx from 'clsx'

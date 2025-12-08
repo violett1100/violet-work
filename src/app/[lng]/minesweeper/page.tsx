@@ -1,4 +1,4 @@
-import { Minesweeper } from '@/app/_componments/Minesweeper'
+import { Minesweeper } from '@/app/componments/Minesweeper'
 import '@/app/assets/css/Minesweeper.min.css'
 
 export default function Page() {
