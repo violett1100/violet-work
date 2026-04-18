@@ -1,12 +1,10 @@
 {
-  "eslint.codeActionsOnSave.rules": null,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "eslint.enable": true,
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "prettier.jsxSingleQuote": false,
+  "prettier.bracketSpacing": true,
+  "prettier.printWidth": 100,
   "prettier.singleQuote": true,
-  "prettier.printWidth": 100
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  }
 }

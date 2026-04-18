@@ -1,14 +1,19 @@
 import clsx from 'clsx'
 import Link from 'next/link'
+
 // import { Menu } from '@/app/componments/menu'
 import { SwitchLangBtn } from '@/app/componments/switchLang'
 
-export function Header_resume(params) {
+import { getLocale } from '../utils/getLocale'
+
+export async function Header_resume() {
+  const { t, lng } = await getLocale()
+
   return (
     <div className="wrapper grid gap-4 md:gap-8 grid-cols-1 md:grid-cols-4">
       <div className="col-span-1 md:col-span-3">
         <Link
-          href={`/${params.lng}`}
+          href={`/${lng}`}
           className="text-3xl after:block after:w-44 after:h-2 after:translate-x-16 after:translate-y-2 after:bg-purple-300"
           scroll={false}
         >
@@ -16,10 +21,8 @@ export function Header_resume(params) {
         </Link>
       </div>
       <div className="mt-2">
-        <p>
-          {params.lng == 'en' ? 'Website Designer & Frontend Developer' : '網頁設計師＆前端工程師'}
-        </p>
-        <SwitchLangBtn lng={params.lng} />
+        <p>{t('menu_position')}</p>
+        <SwitchLangBtn lng={lng} />
         {/* <Menu /> */}
       </div>
     </div>

@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
-import './globals.css'
+import '@/app/assets/css/globals.css'
 import { Outfit, Ubuntu_Mono } from 'next/font/google'
 import { ReactElement } from 'react'
 // import { dir } from 'i18next'
 
-import { languages } from '@/i18n/settings'
+import { supportedLngs } from '@/i18n/settings'
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 
 type RootLayoutProps = { children: ReactElement; params: Promise<{ lng: string }> }
 export function generateStaticParams() {
-  return [languages.map((lng) => ({ lng }))]
+  return [supportedLngs.map((lng) => ({ lng }))]
 }
 
 // {

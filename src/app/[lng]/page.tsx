@@ -1,19 +1,13 @@
-import { Games } from '@/app/componments/games'
-import Link from 'next/link'
-import Image from 'next/image'
 import clsx from 'clsx'
 import { ChevronRight } from 'lucide-react'
-import { getTranslation } from '@/i18n'
-import { cookies } from 'next/headers'
+import Image from 'next/image'
+import Link from 'next/link'
 
-type PageProps = { params: Promise<{ lng: string }> }
-export default async function Home({ params }: PageProps) {
-  const resolvedParams = await params
-  const { t } = await getTranslation(resolvedParams.lng, 'translation')
-  const cookieStore = await cookies()
+import { Games } from '@/app/componments/games'
+import { getLocale } from '@/app/utils/getLocale'
 
-  const theme = cookieStore.get('i18next')
-  console.log(theme)
+export default async function Home() {
+  const { t, lng } = await getLocale()
 
   const designs = [
     // { text: 'Tech', link: 'https://violet-demo-tech.netlify.app' },
@@ -54,12 +48,12 @@ export default async function Home({ params }: PageProps) {
   const games = [
     {
       name: t('myWork.categ3.content1'),
-      url: `/${resolvedParams.lng}/wordle`,
+      url: `/${lng}/wordle`,
       img: '/assets/images/wordle.png',
     },
     {
       name: t('myWork.categ3.content5'),
-      url: `/${resolvedParams.lng}/minesweeper`,
+      url: `/${lng}/minesweeper`,
       img: '/assets/images/minesweeper.png',
     },
     {
@@ -142,7 +136,7 @@ export default async function Home({ params }: PageProps) {
             <h3 className="subtitle">{t('myWork.categ4.title')}</h3>
             <div className="mb-4 border-b border-tertiary pb-2">
               <Link
-                href={`/${resolvedParams.lng}/datepicker`}
+                href={`/${lng}/datepicker`}
                 className="hover:text-primary inline-block md:flex justify-between items-baseline"
               >
                 <p className="flex items-center">
@@ -168,13 +162,11 @@ export default async function Home({ params }: PageProps) {
             ></Image>
             <div
               className={clsx('col-start-2 md:col-start-3 col-end-5 lg:col-end-4', {
-                'leading-relaxed': resolvedParams.lng == 'en',
-                'leading-loose': resolvedParams.lng == 'zh',
+                'leading-relaxed': lng == 'en',
+                'leading-loose': lng == 'zh',
               })}
             >
-              <p className={resolvedParams.lng == 'en' ? 'mb-4' : 'mb-6'}>
-                {t('aboutMe.content1')}
-              </p>
+              <p className={lng == 'en' ? 'mb-4' : 'mb-6'}>{t('aboutMe.content1')}</p>
               <p>{t('aboutMe.content2')}</p>
             </div>
             <div className="col-start-4"></div>
