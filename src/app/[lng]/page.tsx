@@ -2,12 +2,13 @@ import clsx from 'clsx'
 import { ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
 
 import { Games } from '@/app/componments/games'
-import { getLocale } from '@/app/utils/getLocale'
 
-export default async function Home() {
-  const { t, lng } = await getLocale()
+export default async function Home({ params }: { params: Promise<{ lng: string }> }) {
+  const { lng } = await params
+  const t = await getTranslations('HomePage')
 
   const designs = [
     // { text: 'Tech', link: 'https://violet-demo-tech.netlify.app' },

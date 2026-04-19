@@ -1,0 +1,49 @@
+{
+  "HomePage": {
+    "myWork": {
+      "title": "My Work",
+      "categ1": {
+        "title": "Website Designs",
+        "content1": "Pharmacy and Medicine Website Design (Behance)",
+        "content2": "Wedding RSVP Website Design & Development",
+        "content3": "Design Brand Website Design & Development"
+      },
+      "categ2": {
+        "title": "Business Projects",
+        "content1": "Peritoneal Dialysis Website Design & Development",
+        "content2": "Hemodialysis Website Design & Development",
+        "content3": "Farm Brand Website Design & Development"
+      },
+      "categ3": {
+        "title": "Interactive Games",
+        "content1": "Wordle",
+        "content2": "Lucky Wheel",
+        "content3": "Slot Machine",
+        "content4": "Scratch Lottery",
+        "content5": "Minesweeper"
+      },
+      "categ4": {
+        "title": "Practice Components",
+        "content1": "Date Picker"
+      }
+    },
+    "aboutMe": {
+      "title": "About Me",
+      "content1": "Hi! I'm Violet, a front-end developer with designing experiences. I enjoy diving in the summer, snowboarding in the winter, and exploring new things while taking on different challenges.",
+      "content2": "I have four years of experience in web development, with well understanding of website planning, design, and the complete process of building a site from scratch. If you're interested in these topics, feel free to reach out!"
+    }
+  },
+  "Header": {
+    "position": "Website Designer & Frontend Developer",
+    "lng_en": "EN",
+    "lng_zh": "ZH"
+  },
+  "NotFoundPage": {
+    "notFound": "Page Not Found",
+    "backHome": "BACK HOME"
+  },
+  "Games": {
+    "Wordle": "Wordle",
+    "Minesweeper": "Minesweeper"
+  }
+}

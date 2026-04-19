@@ -1,7 +1,11 @@
-import type { Metadata } from 'next'
-import { Header_resume } from '@/app/componments/header'
-import { Footer } from '@/app/componments/footer'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages } from 'next-intl/server'
 import { ReactElement } from 'react'
+
+import { Footer } from '@/app/componments/footer'
+import { Header_resume } from '@/app/componments/header'
+
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: `Violet's Work`,
@@ -10,12 +14,16 @@ export const metadata: Metadata = {
 
 type RootLayoutProps = { children: ReactElement; params: Promise<{ lng: string }> }
 export default async function Layout({ children, params }: RootLayoutProps) {
-  const resolvedParams = await params
+  const { lng } = await params
+
+  const messages = await getMessages()
   return (
     <>
-      <Header_resume lng={resolvedParams.lng} />
-      {children}
-      <Footer />
+      <NextIntlClientProvider messages={messages}>
+        <Header_resume lng={lng} />
+        {children}
+        <Footer />
+      </NextIntlClientProvider>
     </>
   )
 }

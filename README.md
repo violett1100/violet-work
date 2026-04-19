@@ -1,11 +1,9 @@
 # Violet's Personal Website
 
-
 ## Introduction
 
 This is a personal website built with **Next.js**, **React**, **TypeScript**, and **Tailwind CSS**.  
 It showcases mini web applications and UI components built for practice and demonstration purposes.
-
 
 ## Features
 
@@ -17,7 +15,6 @@ It showcases mini web applications and UI components built for practice and demo
   Custom UI component.  
   Route: `/[lng]/datepicker`
 
-
 ## Tech Stack
 
 - Next.js (App Router)
@@ -25,7 +22,6 @@ It showcases mini web applications and UI components built for practice and demo
 - TypeScript
 - Tailwind CSS
 - i18n (Internationalization)
-
 
 ## Installation
 

@@ -1,13 +1,13 @@
 import clsx from 'clsx'
 import Link from 'next/link'
-
 // import { Menu } from '@/app/componments/menu'
+import { getTranslations } from 'next-intl/server'
+
 import { SwitchLangBtn } from '@/app/componments/switchLang'
 
-import { getLocale } from '../utils/getLocale'
-
-export async function Header_resume() {
-  const { t, lng } = await getLocale()
+export async function Header_resume(props: { lng: string }) {
+  const { lng } = props
+  const t = await getTranslations('Header')
 
   return (
     <div className="wrapper grid gap-4 md:gap-8 grid-cols-1 md:grid-cols-4">
@@ -21,7 +21,7 @@ export async function Header_resume() {
         </Link>
       </div>
       <div className="mt-2">
-        <p>{t('menu_position')}</p>
+        <p>{t('position')}</p>
         <SwitchLangBtn lng={lng} />
         {/* <Menu /> */}
       </div>

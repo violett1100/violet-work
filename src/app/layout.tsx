@@ -1,11 +1,9 @@
-import type { Metadata } from 'next'
+import { Outfit, Ubuntu_Mono } from 'next/font/google'
 import localFont from 'next/font/local'
 import '@/app/assets/css/globals.css'
-import { Outfit, Ubuntu_Mono } from 'next/font/google'
 import { ReactElement } from 'react'
-// import { dir } from 'i18next'
 
-import { supportedLngs } from '@/i18n/settings'
+import type { Metadata } from 'next'
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -35,20 +33,11 @@ export const metadata: Metadata = {
 }
 
 type RootLayoutProps = { children: ReactElement; params: Promise<{ lng: string }> }
-export function generateStaticParams() {
-  return [supportedLngs.map((lng) => ({ lng }))]
-}
-
-// {
-//     children,
-//   }: Readonly<{
-//     children: React.ReactNode;
-//   }>
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {
-  const resolvedParams = await params
+  const { lng } = await params
   return (
-    <html lang={resolvedParams.lng}>
+    <html lang={lng}>
       <body
         // 防止chrome擴充功能影響程式碼
         suppressHydrationWarning={true}
